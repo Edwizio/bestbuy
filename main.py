@@ -28,8 +28,8 @@ def start(store_obj):
 
         elif choice == "1":
             print("\nProducts in store:")
-            for product in store_obj.get_all_products():
-                print(product.show())
+            for i, product in enumerate(store_obj.get_all_products(), 1):
+                print(f"{i}. {product.show()}")
 
         elif choice == "2":
             total_quantity = store_obj.get_total_quantity()
@@ -39,12 +39,13 @@ def start(store_obj):
             shopping_list = []
 
             print("\nProducts available:")
-            for product in store_obj.get_all_products():
-                print(product.show())
+            for i, product in enumerate(store_obj.get_all_products(), 1):
+
+                print(f"{i}. {product.show()}")
 
             while True:
                 product_name = input("When you want to finish order, enter empty text.\nWhich product # do you want? ")
-                if product_name == " ":
+                if product_name == "":
                     break
 
                 try:
@@ -53,12 +54,13 @@ def start(store_obj):
                         print("Please choose a valid product number.")
                         continue
 
-                    selected_product = product_list[product_number - 1]
+                    active_product_list = store_obj.get_all_products()
+                    selected_product = active_product_list[product_number - 1]
                     quantity_input = input("Enter quantity for " + selected_product.name + ": ").strip()
                     quantity = int(quantity_input)
                     shopping_list.append((selected_product, quantity))
 
-                except:
+                except Exception as e:
                     print("Please enter a valid number.")
 
             if shopping_list:

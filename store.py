@@ -17,10 +17,7 @@ class Store:
 
     def get_total_quantity(self):
         """Return the total quantity of all products in the store."""
-        total = 0
-        for product in self.products:
-            total += product.get_quantity()
-        return total
+        return sum(product.get_quantity() for product in self.products)
 
     def get_all_products(self):
         """Return a list of all active products."""
