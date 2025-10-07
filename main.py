@@ -22,13 +22,16 @@ def start(store_obj):
 
         choice = input("Enter your choice: ").strip()
 
+        # Updating the available products list each time the function is called
+        active_product_list = store_obj.get_all_products()
+
         if choice == "4":
             print("Thank you for visiting!")
             break
 
         elif choice == "1":
             print("\nProducts in store:")
-            for i, product in enumerate(store_obj.get_all_products(), 1):
+            for i, product in enumerate(active_product_list, 1):
                 print(f"{i}. {product.show()}")
 
         elif choice == "2":
@@ -39,7 +42,7 @@ def start(store_obj):
             shopping_list = []
 
             print("\nProducts available:")
-            for i, product in enumerate(store_obj.get_all_products(), 1):
+            for i, product in enumerate(active_product_list, 1):
 
                 print(f"{i}. {product.show()}")
 
@@ -50,11 +53,10 @@ def start(store_obj):
 
                 try:
                     product_number = int(product_name)
-                    if product_number < 1 or product_number > len(product_list):
+                    if product_number < 1 or product_number > len(active_product_list):
                         print("Please choose a valid product number.")
                         continue
 
-                    active_product_list = store_obj.get_all_products()
                     selected_product = active_product_list[product_number - 1]
                     quantity_input = input("Enter quantity for " + selected_product.name + ": ").strip()
                     quantity = int(quantity_input)
